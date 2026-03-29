@@ -109,5 +109,11 @@ def resultado():
         
     return render_template('resultado.html', aciertos=aciertos, total=total, modo=modo_actual)
 
+# === ESTA ES LA RUTA QUE HACÍA FALTA ===
+@app.route('/reset')
+def reset():
+    session.clear() # Borra el puntaje y progreso
+    return redirect(url_for('inicio')) # Te manda al menú principal
+
 if __name__ == '__main__':
     app.run(debug=True)
