@@ -31,7 +31,6 @@ curiosidades_flynn = [
 
 @app.route('/')
 def inicio():
-    # Reiniciamos sesión para un juego nuevo
     session['total'] = 0
     session['aciertos'] = 0
     session['modo'] = 'normal'
@@ -40,11 +39,11 @@ def inicio():
     
     if aparece_rapunzel:
         personaje = "rapunzel"
-        imagen = "rapunzel_colgada.png"
+        imagen = "rapunzel.png" # 👈 Corregido: Quitamos el "images/" y dejamos el nombre simple
         mensaje = random.choice(frases_rapunzel)
     else:
         personaje = "flynn"
-        imagen = "flynn.png"
+        imagen = "flynn.png" # 👈 Corregido: Quitamos el "images/"
         mensaje = random.choice(curiosidades_flynn)
         
     session['personaje_actual'] = personaje
@@ -75,8 +74,9 @@ def quiz():
     motivacion_pascal = None
 
     if request.method == 'POST':
-        respuesta_usuario = request.form.get('respuesta')
-        respuesta_correcta = request.form.get('correcta')
+        # 🧹 Limpiamos la respuesta del usuario
+        respuesta_usuario = str(request.form.get('respuesta')).strip().lower()
+        respuesta_correcta = str(request.form.get('correcta')).strip().lower()
         
         session['total'] += 1
         
@@ -85,14 +85,13 @@ def quiz():
             mensaje_feedback = "¡Correcto! Sigue así. 👏"
             es_correcta = True
         else:
-            mensaje_feedback = f"❌ Incorrecto. La respuesta correcta era la opción que contenía: {respuesta_correcta}"
+            mensaje_feedback = "❌ Incorrecto."
             es_correcta = False
 
-        # Si es modo Torre y llegó a 30, va a resultados
         if session.get('modo') == 'torre' and session['total'] >= 30:
             return redirect(url_for('resultado'))
 
-    # Traer una pregunta aleatoria de la base de datos
+    # Traer una pregunta aleatoria
     db = obtener_db()
     pregunta = db.execute('SELECT * FROM preguntas ORDER BY RANDOM() LIMIT 1').fetchone()
     db.close()
@@ -102,8 +101,6 @@ def quiz():
 
     enunciado = pregunta['enunciado']
     
-    # 🎲 EL TRUCO PARA REVOLVER LAS OPCIONES:
-    # Creamos una lista con las opciones y su letra original
     opciones = [
         {'texto': pregunta['opcion_a'], 'id': 'a'},
         {'texto': pregunta['opcion_b'], 'id': 'b'},
@@ -111,11 +108,10 @@ def quiz():
         {'texto': pregunta['opcion_d'], 'id': 'd'}
     ]
     
-    # Las mezclamos al azar
     random.shuffle(opciones)
     
-    # Buscamos cuál de las mezcladas es la correcta de verdad
-    letra_correcta_original = pregunta['respuesta_correcta'].lower().strip()
+    # Buscamos el texto de la respuesta correcta original
+    letra_correcta_original = str(pregunta['respuesta_correcta']).lower().strip()
     valor_correcto_real = ""
     for op in opciones:
         if op['id'] == letra_correcta_original:
@@ -127,12 +123,10 @@ def quiz():
 
     return render_template('quiz.html',
                            enunciado=enunciado,
-                           # Pasamos las opciones ya revueltas
                            a=opciones[0]['texto'],
                            b=opciones[1]['texto'],
                            c=opciones[2]['texto'],
                            d=opciones[3]['texto'],
-                           # La respuesta correcta ahora se evalúa por el TEXTO y no por la letra 'a'
                            correcta=valor_correcto_real,
                            mensaje=mensaje_feedback,
                            es_correcta=es_correcta,
