@@ -6,8 +6,7 @@
     <title>🌟 Tu Resultado Mágico 🌟</title>
     <style>
         body {
-            /* Fondo degradado suave en tonos morado pastel y rosa pastel */
-            background: linear_gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
+            background: linear-gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -25,19 +24,19 @@
             text-align: center;
             max-width: 450px;
             width: 90%;
-            border: 3px solid #f9f0ca; /* Borde dorado pastel */
+            border: 3px solid #f9f0ca;
             position: relative;
         }
 
         h1 {
-            color: #6a4c9c; /* Morado Rapunzel */
+            color: #6a4c9c;
             font-family: 'Georgia', serif;
             margin-bottom: 10px;
             font-size: 2.2em;
         }
 
         .mensaje_final {
-            color: #d88fb5; /* Rosa suave pastel */
+            color: #d88fb5;
             font-size: 1.2em;
             margin-bottom: 25px;
             font-weight: 500;
@@ -65,7 +64,7 @@
 
         .btn_reiniciar {
             display: inline-block;
-            background-color: #6a4c9c; /* Morado Rapunzel principal */
+            background-color: #6a4c9c;
             color: white;
             padding: 15px 30px;
             border-radius: 50px;
@@ -85,37 +84,60 @@
             box-shadow: 0 6px 15px rgba(106, 76, 156, 0.4);
         }
 
-        /* Pequeño detalle flotante de sol decorativo */
         .sol_decorativo {
             font-size: 2em;
             display: block;
             margin-bottom: 15px;
             color: #f6e08c;
         }
+
+        /* Estilo para la animación del sartenazo */
+        .sartenazo {
+            font-size: 4em;
+            display: block;
+            margin-bottom: 15px;
+            animation: golpe 0.5s ease;
+        }
+
+        @keyframes golpe {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-30deg) scale(1.2); }
+            100% { transform: rotate(0deg); }
+        }
     </style>
 </head>
 <body>
 
 <div class="results_container">
-    <span class="sol_decorativo">☀️</span>
-    <h1>¡Cuestionario Terminado!</h1>
     
-    <p class="mensaje_final">
-        {% if aciertos == total and total > 0 %}
-            ✨ ¡Increíble! ¡Hiciste brillar tu luz al máximo! ✨
-        {% elif aciertos >= (total / 2) %}
-            🌸 ¡Muy buen trabajo! Estás cada vez más cerca de tu sueño. 🌸
-        {% else %}
-            🎨 ¡No te desanimes! Mañana será un nuevo día para intentar. 🎨
-        {% endif %}
-    </p>
+    {# REGLA DEL SARTENAZO: Si es modo torre y los aciertos son menores a la mitad del total #}
+    {% if modo == "torre" and aciertos < (total / 2) %}
+        <span class="sartenazo">🍳💥</span>
+        <h1>¡SARTENAZO!</h1>
+        <p class="mensaje_final" style="color: #c0392b;">
+            ¡La torre es implacable! Tuviste demasiados errores. ¡A estudiar más enfermería! 🩹🩺
+        </p>
+    {% else %}
+        <span class="sol_decorativo">☀️</span>
+        <h1>¡Cuestionario Terminado!</h1>
+        
+        <p class="mensaje_final">
+            {% if aciertos == total and total > 0 %}
+                ✨ ¡Increíble! ¡Hiciste brillar tu luz al máximo! ✨
+            {% elif aciertos >= (total / 2) %}
+                🌸 ¡Muy buen trabajo! Estás cada vez más cerca de tu sueño. 🌸
+            {% else %}
+                🎨 ¡No te desanimes! Mañana será un nuevo día para intentar. 🎨
+            {% endif %}
+        </p>
+    {% endif %}
 
     <div class="score_box">
         <p>Lograste acertar <span class="number">{{ aciertos }}</span> preguntas.</p>
         <p>De un total de <span class="number">{{ total }}</span> respondidas.</p>
     </div>
-    
-    <a href="{{ url_for('reset') }}" class="btn_reiniciar">✨ Vivir un nuevo sueño (Reiniciar) ✨</a>
+
+    <a href="/" class="btn_reiniciar">Volver al Inicio</a>
 </div>
 
 </body>
