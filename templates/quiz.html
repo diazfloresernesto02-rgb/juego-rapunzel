@@ -25,21 +25,21 @@
             position: fixed;
             z-index: 20;
             display: flex;
-            flex-direction: column-reverse; /* Pascal ARRIBA del texto en móviles */
+            flex-direction: column-reverse;
             align-items: center;
-            bottom: -10px; /* Pegado abajo en móviles */
+            bottom: 60px; /* Subido un poco para no chocar con la barra inferior */
             left: 50%;
-            transform: translateX(-50%); /* Centrado horizontal */
+            transform: translateX(-50%);
             animation: aparecer_desde_abajo 0.5s ease-out;
             width: 90%;
             max-width: 250px;
         }
 
-        /* --- 🖥️ DISEÑO PARA COMPUTADORAS (Pantallas anchas) --- */
+        /* --- 🖥️ DISEÑO PARA COMPUTADORAS --- */
         @media (min-width: 768px) {
             .pascal_wrapper {
-                flex-direction: column; /* Texto arriba, Pascal abajo */
-                bottom: -10px;
+                flex-direction: column;
+                bottom: 60px;
                 left: 20px;
                 transform: none;
                 align-items: center;
@@ -54,23 +54,23 @@
         }
 
         .img_pascal {
-            width: 80px; /* Tamaño adaptado para móviles */
+            width: 80px;
             height: auto;
         }
 
         @media (min-width: 768px) {
-            .img_pascal { width: 110px; } /* Más grande en computadoras */
+            .img_pascal { width: 100px; }
         }
 
         .mensaje_pascal {
             background-color: white;
-            color: #27ae60; /* Verde camaleón */
+            color: #27ae60;
             font-weight: bold;
             font-size: 0.9em;
             padding: 8px 12px;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 5px; /* Espacio entre Pascal y el texto */
+            margin-bottom: 5px;
             text-align: center;
             width: 100%;
         }
@@ -90,7 +90,6 @@
             100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
         }
 
-        /* Colores de los mensajes de feedback */
         .feedback_mensaje {
             padding: 12px;
             border-radius: 10px;
@@ -112,7 +111,6 @@
             border: 1px solid #f5c6cb;
         }
 
-        /* Estilos del cuestionario responsivos */
         .quiz_main {
             display: flex;
             flex-direction: column;
@@ -120,11 +118,11 @@
             align-items: center;
             flex-grow: 1;
             width: 100%;
-            margin-bottom: 120px; /* Espacio para Pascal abajo en móviles */
+            margin-bottom: 160px; /* Espacio para Pascal y la barra inferior */
         }
 
         @media (min-width: 768px) {
-            .quiz_main { margin-bottom: 0; }
+            .quiz_main { margin-bottom: 60px; }
         }
 
         .quiz_container {
@@ -136,10 +134,6 @@
             width: 100%;
             border: 3px solid #f9f0ca;
             box-sizing: border-box;
-        }
-
-        @media (min-width: 768px) {
-            .quiz_container { padding: 40px; }
         }
 
         h2 {
@@ -193,6 +187,44 @@
             margin-top: 15px;
             color: #8c8c8c;
             font-size: 0.85em;
+            text-align: center;
+        }
+
+        /* 📍 BARRA INFERIOR DISCRETA DE NAVEGACIÓN 📍 */
+        .barra_inferior {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid #e1d5eb;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 30;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .link_discreto {
+            color: #a694bf;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .link_discreto:hover {
+            color: #d88fb5;
+        }
+
+        .separador {
+            color: #e1d5eb;
+            user-select: none;
         }
 
     </style>
@@ -255,6 +287,14 @@
             </div>
         </div>
     </main>
+
+    <nav class="barra_inferior">
+        <a href="{{ url_for('inicio') }}" class="link_discreto">🏠 Inicio</a>
+        <span class="separador">|</span>
+        <a href="{{ url_for('resultado') }}" class="link_discreto">📊 Ver Puntuación</a>
+        <span class="separador">|</span>
+        <a href="{{ url_for('reset') }}" class="link_discreto">🔄 Reiniciar</a>
+    </nav>
 
 </body>
 </html>
