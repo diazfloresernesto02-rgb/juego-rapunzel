@@ -14,121 +14,67 @@
             min-height: 100vh;
             margin: 0;
             color: #4a4a4a;
-            position: relative;
             padding: 20px;
             box-sizing: border-box;
-            overflow-x: hidden; /* Evita que la pantalla se mueva hacia los lados */
-        }
-
-        @keyframes aparecer_desaparecer {
-            0%, 10% { opacity: 0; transform: translateY(-20px); }
-            15%, 85% { opacity: 1; transform: translateY(0px); }
-            90%, 100% { opacity: 0; transform: translateY(-20px); }
-        }
-
-        .personaje_wrapper {
-            position: fixed;
-            z-index: 20;
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: center;
-            animation: aparecer_desaparecer 20s infinite ease-in-out;
-            width: 85%; /* Ajustado para que no toque los bordes del celular */
-            max-width: 280px;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .img_personaje {
-            width: 120px; /* Un poco más pequeña en móviles para dar espacio al texto */
-            height: auto;
-            margin-top: 5px;
-        }
-
-        .rapunzel_dialogo {
-            background-color: white;
-            padding: 8px 12px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 0.85em; /* Texto ligeramente más pequeño en celular */
-            color: #6a4c9c;
-            font-weight: bold;
-            width: 100%; /* Ocupa el ancho del contenedor wrapper */
-            box-sizing: border-box;
-            word-wrap: break-word; /* Forza a las palabras largas a saltar de línea */
-        }
-
-        @media (min-width: 768px) {
-            .personaje_wrapper {
-                top: auto;
-                bottom: -20px;
-                right: 0;
-                left: auto;
-                transform: none;
-                align-items: flex-end;
-                width: auto;
-                max-width: 300px;
-            }
-
-            .img_personaje {
-                width: 180px;
-                margin-right: -20px;
-                margin-top: 0;
-            }
-
-            .rapunzel_dialogo {
-                font-size: 1.1em;
-                margin-right: 20px;
-                margin-bottom: 10px;
-                width: auto;
-                max-width: 250px;
-            }
+            overflow: hidden;
         }
 
         .tower_container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             text-align: center;
-            max-width: 450px;
+            max-width: 400px;
             width: 100%;
             border: 3px solid #f9f0ca;
-            position: relative;
-            z-index: 5;
-            margin-top: 160px; /* Espacio para que no choque con Rapunzel arriba */
             box-sizing: border-box;
+            position: relative;
         }
 
-        @media (min-width: 768px) {
-            .tower_container { padding: 40px; margin-top: 0; }
+        /* 🎭 Estilos del Personaje 🎭 */
+        .personaje_integrado {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e9dcf1;
+            padding-bottom: 15px;
         }
 
-        .tower_container::before {
-            content: '☀️';
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            font-size: 2.5em;
-            color: #f6e08c;
-            opacity: 0.6;
+        .img_personaje {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 5px rgba(0,0,0,0.1));
         }
 
+        .rapunzel_dialogo {
+            background-color: #fbf4f8;
+            color: #6a4c9c;
+            font-weight: bold;
+            font-size: 0.9em;
+            padding: 12px 15px;
+            border-radius: 12px;
+            text-align: center;
+            line-height: 1.4;
+            width: 100%;
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+
+        /* 🏥 Título y Botones 🏥 */
         h1 {
             color: #6a4c9c;
             font-family: 'Georgia', serif;
-            margin-bottom: 10px;
-            font-size: 1.6em;
+            margin: 0 0 5px 0;
+            font-size: 1.5em;
         }
-
-        @media (min-width: 768px) { h1 { font-size: 2.2em; } }
 
         .subtitulo {
             color: #d88fb5;
-            font-size: 0.95em;
-            margin-bottom: 25px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
             font-weight: 500;
         }
 
@@ -136,55 +82,55 @@
             display: inline-block;
             background-color: #6a4c9c;
             color: white;
-            padding: 12px 25px;
+            padding: 12px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.05em;
-            transition: all 0.3s ease;
+            font-size: 1em;
             margin-bottom: 10px;
             width: 100%;
             box-sizing: border-box;
-        }
-
-        @media (min-width: 768px) {
-            .btn_comenzar { padding: 15px 30px; font-size: 1.2em; width: auto; }
+            transition: all 0.3s ease;
         }
 
         .btn_comenzar:hover {
             background-color: white;
             color: #6a4c9c;
             border: 2px solid #6a4c9c;
-            transform: translateY(-3px);
         }
 
-        .footer { margin-top: 25px; font-size: 0.9em; color: #8c8c8c; }
-        .btn_reset { color: #a694bf; text-decoration: none; cursor: pointer; background: none; border: none; }
-        .btn_reset:hover { color: #d88fb5; text-decoration: underline; }
-
-        @keyframes destello {
-            0% { box-shadow: 0 4px 10px rgba(106, 76, 156, 0.3); }
-            50% { box-shadow: 0 4px 20px rgba(246, 224, 140, 0.8); }
-            100% { box-shadow: 0 4px 10px rgba(106, 76, 156, 0.3); }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #8c8c8c;
+            border-top: 1px solid #e9dcf1;
+            padding-top: 15px;
         }
 
-        .btn_comenzar_destello { animation: destello 3s infinite; }
+        .btn_reset {
+            color: #a694bf;
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
+<div class="tower_container">
+
     {% if personaje_actual %}
-    <div class="personaje_wrapper">
+    <div class="personaje_integrado">
+        <img src="{{ imagen_personaje }}" alt="{{ personaje_actual }}" class="img_personaje">
         <div class="rapunzel_dialogo">{{ mensaje_actual }}</div>
-        <img src="{{ url_for('static', filename=imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
     </div>
     {% endif %}
 
-<div class="tower_container">
     <h1>🏥 Banco de Preguntas Basica I</h1>
     <p class="subtitulo">¡Prepárate para brillar! 🌟</p>
     
-    <a href="{{ url_for('quiz') }}" class="btn_comenzar btn_comenzar_destello">¡Comenzar Cuestionario!</a>
+    <a href="{{ url_for('quiz') }}" class="btn_comenzar">¡Comenzar Cuestionario!</a>
     <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5;">Examen de la Torre! ⏱️</a>
 
     <div class="footer">
