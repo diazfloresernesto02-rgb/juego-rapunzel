@@ -19,36 +19,32 @@
             box-sizing: border-box;
         }
 
-        /* 💇 Animación para aparecer y desaparecer */
         @keyframes aparecer_desaparecer {
-            0%, 10% { opacity: 0; transform: translateY(-20px); } /* Invisible */
-            15%, 85% { opacity: 1; transform: translateY(0px); }  /* Visible */
-            90%, 100% { opacity: 0; transform: translateY(-20px); } /* Invisible */
+            0%, 10% { opacity: 0; transform: translateY(-20px); }
+            15%, 85% { opacity: 1; transform: translateY(0px); }
+            90%, 100% { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* Contenedor del personaje y diálogo */
         .personaje_wrapper {
             position: fixed;
             z-index: 20;
             display: flex;
-            flex-direction: column-reverse; /* Diálogo ARRIBA del personaje */
-            align-items: center; /* Centrado en móviles por defecto */
+            flex-direction: column-reverse;
+            align-items: center;
             animation: aparecer_desaparecer 20s infinite ease-in-out;
-            width: 90%; /* Ancho en móviles */
+            width: 90%;
             max-width: 300px;
-            top: 20px; /* Arriba en móviles */
+            top: 20px;
             left: 50%;
-            transform: translateX(-50%); /* Centrado horizontal */
+            transform: translateX(-50%);
         }
 
-        /* Imagen del personaje (Flynn o Rapunzel) */
         .img_personaje {
-            width: 140px; /* Tamaño adaptado para móviles */
+            width: 140px;
             height: auto;
-            margin-top: 10px; /* Separación del diálogo */
+            margin-top: 10px;
         }
 
-        /* Bocadillo de diálogo flotando arriba de él */
         .rapunzel_dialogo {
             background-color: white;
             padding: 10px 15px;
@@ -58,26 +54,24 @@
             font-size: 1em;
             color: #6a4c9c;
             font-weight: bold;
-            max-width: 100%; /* Ocupa el contenedor */
+            max-width: 100%;
         }
 
-        /* --- 🖥️ DISEÑO PARA COMPUTADORAS (Pantallas anchas) --- */
         @media (min-width: 768px) {
             .personaje_wrapper {
                 top: auto;
-                bottom: -20px; /* Pegado abajo a la derecha */
+                bottom: -20px;
                 right: 0;
                 left: auto;
                 transform: none;
-                align-items: flex-end; /* Alineado a la derecha */
+                align-items: flex-end;
                 width: auto;
             }
 
             .img_personaje {
-                width: 180px; /* Más grande en computadoras */
-                margin-right: -20px; /* Apoyado en el borde */
+                width: 180px;
+                margin-right: -20px;
                 margin-top: 0;
-                margin-bottom: 0;
             }
 
             .rapunzel_dialogo {
@@ -87,7 +81,6 @@
             }
         }
 
-        /* Estilos del contenedor principal (responsivos) */
         .tower_container {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 30px;
@@ -99,14 +92,11 @@
             border: 3px solid #f9f0ca;
             position: relative;
             z-index: 5;
-            margin-top: 150px; /* Espacio para el personaje arriba en móviles */
+            margin-top: 150px;
         }
 
         @media (min-width: 768px) {
-            .tower_container {
-                padding: 40px;
-                margin-top: 0; /* Volvemos al centro en computadoras */
-            }
+            .tower_container { padding: 40px; margin-top: 0; }
         }
 
         .tower_container::before {
@@ -119,20 +109,14 @@
             opacity: 0.6;
         }
 
-        @media (min-width: 768px) {
-            .tower_container::before { font-size: 3em; }
-        }
-
         h1 {
             color: #6a4c9c;
             font-family: 'Georgia', serif;
             margin-bottom: 10px;
-            font-size: 1.8em; /* Más pequeño en móviles */
+            font-size: 1.8em;
         }
 
-        @media (min-width: 768px) {
-            h1 { font-size: 2.2em; }
-        }
+        @media (min-width: 768px) { h1 { font-size: 2.2em; } }
 
         .subtitulo {
             color: #d88fb5;
@@ -152,16 +136,12 @@
             font-size: 1.1em;
             transition: all 0.3s ease;
             margin-bottom: 10px;
-            width: 100%; /* Botones grandes en móviles */
+            width: 100%;
             box-sizing: border-box;
         }
 
         @media (min-width: 768px) {
-            .btn_comenzar {
-                padding: 15px 30px;
-                font-size: 1.2em;
-                width: auto; /* Ancho automático en computadoras */
-            }
+            .btn_comenzar { padding: 15px 30px; font-size: 1.2em; width: auto; }
         }
 
         .btn_comenzar:hover {
@@ -171,21 +151,8 @@
             transform: translateY(-3px);
         }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #8c8c8c;
-        }
-
-        .btn_reset {
-            color: #a694bf;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 0;
-            background: none;
-            border: none;
-            font-size: 1em;
-        }
+        .footer { margin-top: 30px; font-size: 0.9em; color: #8c8c8c; }
+        .btn_reset { color: #a694bf; text-decoration: none; cursor: pointer; background: none; border: none; }
         .btn_reset:hover { color: #d88fb5; text-decoration: underline; }
 
         @keyframes destello {
@@ -194,20 +161,15 @@
             100% { box-shadow: 0 4px 10px rgba(106, 76, 156, 0.3); }
         }
 
-        .btn_comenzar_destello {
-            animation: destello 3s infinite;
-        }
-
+        .btn_comenzar_destello { animation: destello 3s infinite; }
     </style>
 </head>
 <body>
 
-    {% if personaje_actual == "rapunzel" or personaje_actual == "flynn" %}
+    {% if personaje_actual %}
     <div class="personaje_wrapper">
-        <div class="rapunzel_dialogo">
-            {{ mensaje_actual }}
-        </div>
-        <img src="{{ url_for('static', filename=imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
+        <div class="rapunzel_dialogo">{{ mensaje_actual }}</div>
+        <img src="{{ url_for('static', filename='images/' + imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
     </div>
     {% endif %}
 
@@ -219,7 +181,7 @@
     <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5;">Examen de la Torre! ⏱️</a>
 
     <div class="footer">
-        <a href="{{ url_for('reset') }}" class="btn_reset">Reiniciar progreso</a>
+        <button onclick="window.location.href='{{ url_for('reset') }}'" class="btn_reset">Reiniciar progreso</button>
     </div>
 </div>
 
