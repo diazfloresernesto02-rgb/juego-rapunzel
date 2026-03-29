@@ -94,20 +94,20 @@ def quiz():
                            aciertos=session['aciertos'],
                            total=session['total'],
                            modo_examen=session.get('modo_examen'),
-                           tiempo_restante=quedan_segundos)
+                           quedan_segundos=quedan_segundos)
 
 @app.route('/resultado')
 def resultado():
-    return render_template('resultado.html', 
-                           aciertos=session.get('aciertos', 0), 
-                           total=session.get('total', 0))
-
-@app.route('/reset')
-def reset():
-    session['aciertos'] = 0
-    session['total'] = 0
-    session['modo_examen'] = False
-    return redirect(url_for('inicio'))
+    aciertos = session.get('aciertos', 0)
+    total = session.get('total', 0)
+    
+    # Aquí detectamos si viene del modo examen/torre
+    if session.get('modo_examen'):
+        modo_actual = "torre"
+    else:
+        modo_actual = "normal"
+        
+    return render_template('resultado.html', aciertos=aciertos, total=total, modo=modo_actual)
 
 if __name__ == '__main__':
     app.run(debug=True)
