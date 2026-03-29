@@ -17,6 +17,7 @@
             position: relative;
             padding: 20px;
             box-sizing: border-box;
+            overflow-x: hidden; /* Evita que la pantalla se mueva hacia los lados */
         }
 
         @keyframes aparecer_desaparecer {
@@ -32,29 +33,31 @@
             flex-direction: column-reverse;
             align-items: center;
             animation: aparecer_desaparecer 20s infinite ease-in-out;
-            width: 90%;
-            max-width: 300px;
-            top: 20px;
+            width: 85%; /* Ajustado para que no toque los bordes del celular */
+            max-width: 280px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
         }
 
         .img_personaje {
-            width: 140px;
+            width: 120px; /* Un poco más pequeña en móviles para dar espacio al texto */
             height: auto;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .rapunzel_dialogo {
             background-color: white;
-            padding: 10px 15px;
-            border-radius: 15px;
+            padding: 8px 12px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            font-size: 1em;
+            font-size: 0.85em; /* Texto ligeramente más pequeño en celular */
             color: #6a4c9c;
             font-weight: bold;
-            max-width: 100%;
+            width: 100%; /* Ocupa el ancho del contenedor wrapper */
+            box-sizing: border-box;
+            word-wrap: break-word; /* Forza a las palabras largas a saltar de línea */
         }
 
         @media (min-width: 768px) {
@@ -66,6 +69,7 @@
                 transform: none;
                 align-items: flex-end;
                 width: auto;
+                max-width: 300px;
             }
 
             .img_personaje {
@@ -78,12 +82,14 @@
                 font-size: 1.1em;
                 margin-right: 20px;
                 margin-bottom: 10px;
+                width: auto;
+                max-width: 250px;
             }
         }
 
         .tower_container {
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -92,7 +98,8 @@
             border: 3px solid #f9f0ca;
             position: relative;
             z-index: 5;
-            margin-top: 150px;
+            margin-top: 160px; /* Espacio para que no choque con Rapunzel arriba */
+            box-sizing: border-box;
         }
 
         @media (min-width: 768px) {
@@ -113,14 +120,14 @@
             color: #6a4c9c;
             font-family: 'Georgia', serif;
             margin-bottom: 10px;
-            font-size: 1.8em;
+            font-size: 1.6em;
         }
 
         @media (min-width: 768px) { h1 { font-size: 2.2em; } }
 
         .subtitulo {
             color: #d88fb5;
-            font-size: 1em;
+            font-size: 0.95em;
             margin-bottom: 25px;
             font-weight: 500;
         }
@@ -133,7 +140,7 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.05em;
             transition: all 0.3s ease;
             margin-bottom: 10px;
             width: 100%;
@@ -151,7 +158,7 @@
             transform: translateY(-3px);
         }
 
-        .footer { margin-top: 30px; font-size: 0.9em; color: #8c8c8c; }
+        .footer { margin-top: 25px; font-size: 0.9em; color: #8c8c8c; }
         .btn_reset { color: #a694bf; text-decoration: none; cursor: pointer; background: none; border: none; }
         .btn_reset:hover { color: #d88fb5; text-decoration: underline; }
 
@@ -169,7 +176,7 @@
     {% if personaje_actual %}
     <div class="personaje_wrapper">
         <div class="rapunzel_dialogo">{{ mensaje_actual }}</div>
-        <img src="{{ url_for('static', filename='images/' + imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
+        <img src="{{ url_for('static', filename=imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
     </div>
     {% endif %}
 
