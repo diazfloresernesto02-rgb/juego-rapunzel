@@ -16,6 +16,8 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
         }
 
         /* 🌿 Contenedor motivacional de Pascal (Responsivo) */
@@ -73,13 +75,41 @@
             width: 100%;
         }
 
-        @media (min-width: 768px) {
-            .mensaje_pascal {
-                font-size: 1em;
-                padding: 10px 15px;
-                border-radius: 15px;
-                margin-bottom: 5px;
-            }
+        /* ☀️ EFECTO DE SOLES MÁGICOS VOLADORES ☀️ */
+        .sol_flotante {
+            position: absolute;
+            font-size: 2em;
+            opacity: 0;
+            animation: flotar_sol 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes flotar_sol {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+        }
+
+        /* Colores de los mensajes de feedback */
+        .feedback_mensaje {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .correcto {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .incorrecto {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         /* Estilos del cuestionario responsivos */
@@ -120,14 +150,6 @@
             font-size: 1.3em;
         }
 
-        @media (min-width: 768px) {
-            h2 { font-size: 1.5em; margin-bottom: 25px; }
-        }
-
-        .options_form {
-            text-align: left;
-        }
-
         .option_label {
             display: block;
             background-color: #fbf4f8;
@@ -140,20 +162,12 @@
             font-size: 0.95em;
         }
 
-        @media (min-width: 768px) {
-            .option_label { padding: 15px; margin-bottom: 10px; font-size: 1em; }
-        }
-
         .option_label:hover {
             background-color: #f9e1eb;
         }
 
         .option_input {
             margin-right: 10px;
-        }
-
-        @media (min-width: 768px) {
-            .option_input { margin-right: 15px; }
         }
 
         .btn_enviar {
@@ -171,10 +185,6 @@
             transition: background-color 0.3s;
         }
 
-        @media (min-width: 768px) {
-            .btn_enviar { padding: 15px; font-size: 1.1em; margin-top: 20px; }
-        }
-
         .btn_enviar:hover {
             background-color: #553b80;
         }
@@ -185,13 +195,16 @@
             font-size: 0.85em;
         }
 
-        @media (min-width: 768px) {
-            .quiz_status { font-size: 0.9em; margin-top: 20px; }
-        }
-
     </style>
 </head>
 <body>
+
+    {% if es_correcta %}
+        <div class="sol_flotante" style="top: 20%; left: 30%;">☀️</div>
+        <div class="sol_flotante" style="top: 15%; left: 70%;">☀️</div>
+        <div class="sol_flotante" style="top: 40%; left: 15%;">☀️</div>
+        <div class="sol_flotante" style="top: 35%; left: 85%;">☀️</div>
+    {% endif %}
 
     {% if motivacion_pascal %}
     <div class="pascal_wrapper">
@@ -202,6 +215,13 @@
 
     <main class="quiz_main">
         <div class="quiz_container">
+
+            {% if mensaje %}
+                <div class="feedback_mensaje {% if es_correcta %}correcto{% else %}incorrecto{% endif %}">
+                    {{ mensaje }}
+                </div>
+            {% endif %}
+            
             <h2>{{ enunciado }}</h2>
             
             <form action="{{ url_for('quiz') }}" method="POST" class="options_form">
@@ -227,11 +247,11 @@
                     d) {{ d }}
                 </label>
                 
-                <button type="submit" class="btn_enviar">Siguiente🌸</button>
+                <button type="submit" class="btn_enviar">Siguiente 🌸</button>
             </form>
             
             <div class="quiz_status">
-                Pregunta: {{ total + 1 }}
+                Preguntas respondidas: {{ total }} | Aciertos: {{ aciertos }}
             </div>
         </div>
     </main>
