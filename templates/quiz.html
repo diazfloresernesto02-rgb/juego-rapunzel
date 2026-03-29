@@ -3,184 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuestionario Mágico</title>
+    <title>🌸 Cuestionario de Enfermería 🌸</title>
     <style>
         body {
-            background: linear-gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
+            background: linear-gradient(135deg, #f7e1eb 0%, #e9dcf1 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #4a4a4a;
+            margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            color: #4a4a4a;
             padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 🌿 Contenedor motivacional de Pascal (Responsivo) */
+        .pascal_wrapper {
+            position: fixed;
+            z-index: 20;
+            display: flex;
+            flex-direction: column-reverse; /* Pascal ARRIBA del texto en móviles */
+            align-items: center;
+            bottom: -10px; /* Pegado abajo en móviles */
+            left: 50%;
+            transform: translateX(-50%); /* Centrado horizontal */
+            animation: aparecer_desde_abajo 0.5s ease-out;
+            width: 90%;
+            max-width: 250px;
+        }
+
+        /* --- 🖥️ DISEÑO PARA COMPUTADORAS (Pantallas anchas) --- */
+        @media (min-width: 768px) {
+            .pascal_wrapper {
+                flex-direction: column; /* Texto arriba, Pascal abajo */
+                bottom: -10px;
+                left: 20px;
+                transform: none;
+                align-items: center;
+                width: auto;
+                max-width: 200px;
+            }
+        }
+
+        @keyframes aparecer_desde_abajo {
+            0% { transform: translateY(100px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .img_pascal {
+            width: 80px; /* Tamaño adaptado para móviles */
+            height: auto;
+        }
+
+        @media (min-width: 768px) {
+            .img_pascal { width: 110px; } /* Más grande en computadoras */
+        }
+
+        .mensaje_pascal {
+            background-color: white;
+            color: #27ae60; /* Verde camaleón */
+            font-weight: bold;
+            font-size: 0.9em;
+            padding: 8px 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 5px; /* Espacio entre Pascal y el texto */
+            text-align: center;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .mensaje_pascal {
+                font-size: 1em;
+                padding: 10px 15px;
+                border-radius: 15px;
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Estilos del cuestionario responsivos */
+        .quiz_main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+            margin-bottom: 120px; /* Espacio para Pascal abajo en móviles */
+        }
+
+        @media (min-width: 768px) {
+            .quiz_main { margin-bottom: 0; }
         }
 
         .quiz_container {
             background-color: rgba(255, 255, 255, 0.95);
-            padding: 35px;
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
             border: 3px solid #f9f0ca;
-            position: relative;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .quiz_container { padding: 40px; }
         }
 
         h2 {
             color: #6a4c9c;
             font-family: 'Georgia', serif;
-            font-size: 1.4em;
-            line-height: 1.5;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-size: 1.3em;
         }
 
-        .opciones {
-            margin: 20px 0;
+        @media (min-width: 768px) {
+            h2 { font-size: 1.5em; margin-bottom: 25px; }
         }
 
-        .opcion {
+        .options_form {
+            text-align: left;
+        }
+
+        .option_label {
             display: block;
-            background-color: #ffffff;
-            border: 1px solid #e1d5eb;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .opcion:hover {
             background-color: #fbf4f8;
-            border-color: #d88fb5;
-            transform: translateX(5px);
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            border: 1px solid #e1d5eb;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.95em;
         }
 
-        .opcion input {
-            margin-right: 12px;
-            accent-color: #6a4c9c; 
+        @media (min-width: 768px) {
+            .option_label { padding: 15px; margin-bottom: 10px; font-size: 1em; }
+        }
+
+        .option_label:hover {
+            background-color: #f9e1eb;
+        }
+
+        .option_input {
+            margin-right: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .option_input { margin-right: 15px; }
         }
 
         .btn_enviar {
+            display: block;
+            width: 100%;
             background-color: #6a4c9c;
             color: white;
+            padding: 12px;
+            border-radius: 10px;
             border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
             font-weight: bold;
+            font-size: 1em;
+            margin-top: 15px;
             cursor: pointer;
-            width: 100%;
-            font-size: 1.1em;
-            box-shadow: 0 4px 10px rgba(106, 76, 156, 0.2);
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .btn_enviar { padding: 15px; font-size: 1.1em; margin-top: 20px; }
         }
 
         .btn_enviar:hover {
             background-color: #553b80;
-            box-shadow: 0 6px 15px rgba(106, 76, 156, 0.3);
         }
 
-        .mensaje {
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            font-weight: bold;
-            text-align: center;
-            position: relative;
-        }
-
-        .correcto {
-            background-color: #e2f3e7;
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-        }
-
-        .incorrecto {
-            background-color: #fce8e6;
-            color: #c5221f;
-            border: 1px solid #f5c2c7;
-        }
-
-        .score {
-            text-align: center;
-            color: #8c8c8c;
-            font-size: 0.95em;
-            margin-top: 20px;
-            border-top: 1px solid #f3ebf7;
-            padding-top: 15px;
-        }
-
-        .navigation_links {
-            display: flex;
-            justify-content: space-between;
+        .quiz_status {
             margin-top: 15px;
+            color: #8c8c8c;
+            font-size: 0.85em;
         }
 
-        .btn_nav {
-            color: #a694bf;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: color 0.2s;
+        @media (min-width: 768px) {
+            .quiz_status { font-size: 0.9em; margin-top: 20px; }
         }
 
-        .btn_nav:hover {
-            color: #d88fb5;
-            text-decoration: underline;
-        }
-
-        .sol_flotante {
-            position: absolute;
-            font-size: 1.5em;
-            animation: flotarHaciaArriba 2s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes flotarHaciaArriba {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-50px); opacity: 0; }
-        }
     </style>
 </head>
 <body>
 
-<div class="quiz_container">
-    
-    {% if mensaje %}
-        <div class="mensaje {% if es_correcta %}correcto{% else %}incorrecto{% endif %}">
-            {{ mensaje }}
-            {% if es_correcta %}
-                <span class="sol_flotante" style="left: 10%;">☀️</span>
-                <span class="sol_flotante" style="left: 50%;">☀️</span>
-                <span class="sol_flotante" style="left: 85%;">☀️</span>
-            {% endif %}
-        </div>
+    {% if motivacion_pascal %}
+    <div class="pascal_wrapper">
+        <img src="{{ url_for('static', filename='images/pascal.png') }}" alt="Pascal" class="img_pascal">
+        <span class="mensaje_pascal">{{ motivacion_pascal }}</span>
+    </div>
     {% endif %}
 
-    <h2>{{ enunciado }}</h2>
-
-    <form action="{{ url_for('quiz') }}" method="POST">
-        <input type="hidden" name="correcta" value="{{ correcta }}">
-
-        <div class="opciones">
-            <label class="opcion"><input type="radio" name="respuesta" value="a" required> {{ a }}</label>
-            <label class="opcion"><input type="radio" name="respuesta" value="b"> {{ b }}</label>
-            <label class="opcion"><input type="radio" name="respuesta" value="c"> {{ c }}</label>
-            <label class="opcion"><input type="radio" name="respuesta" value="d"> {{ d }}</label>
+    <main class="quiz_main">
+        <div class="quiz_container">
+            <h2>{{ enunciado }}</h2>
+            
+            <form action="{{ url_for('quiz') }}" method="POST" class="options_form">
+                <input type="hidden" name="correcta" value="{{ correcta }}">
+                
+                <label class="option_label">
+                    <input type="radio" name="respuesta" value="a" required class="option_input">
+                    a) {{ a }}
+                </label>
+                
+                <label class="option_label">
+                    <input type="radio" name="respuesta" value="b" class="option_input">
+                    b) {{ b }}
+                </label>
+                
+                <label class="option_label">
+                    <input type="radio" name="respuesta" value="c" class="option_input">
+                    c) {{ c }}
+                </label>
+                
+                <label class="option_label">
+                    <input type="radio" name="respuesta" value="d" class="option_input">
+                    d) {{ d }}
+                </label>
+                
+                <button type="submit" class="btn_enviar">Siguiente🌸</button>
+            </form>
+            
+            <div class="quiz_status">
+                Pregunta: {{ total + 1 }}
+            </div>
         </div>
-
-        <button type="submit" class="btn_enviar">Siguiente Pregunta ✨</button>
-    </form>
-
-    <div class="score">
-        Respuestas correctas: <strong>{{ aciertos }}</strong> de {{ total }} intentadas.
-    </div>
-    
-    <div class="navigation_links">
-        <a href="{{ url_for('inicio') }}" class="btn_nav">← Volver al Inicio</a>
-        <a href="{{ url_for('resultado') }}" class="btn_nav">Finalizar y Ver Nota 📊</a>
-    </div>
-</div>
+    </main>
 
 </body>
 </html>
