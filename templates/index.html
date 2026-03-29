@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Banco de Preguntas Basica I 🌟</title>
+    <style>
+        body {
+            background: linear_gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #4a4a4a;
+            position: relative; /* Necesario para posicionar a Rapunzel */
+            overflow: hidden; /* Evita que el cabello se salga de la pantalla */
+        }
+
+        /* 💇 Estilo para Rapunzel Colgada */
+        .rapunzel_hanging {
+            position: absolute;
+            top: 0; /* Colgada desde arriba */
+            right: -100px; /* Sale desde el lado derecho */
+            width: 300px; /* Ajusta el tamaño según tu imagen */
+            z-index: 10; /* Por encima de todo */
+            transition: all 0.5s ease; /* Pequeño efecto al cargar */
+        }
+
+        /* 💬 Estilo para el Bocadillo de Diálogo */
+        .rapunzel_dialogo {
+            position: absolute;
+            top: 150px; /* Ajusta según la posición de la cara de Rapunzel */
+            right: 220px; /* Ajusta la distancia */
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 250px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #6a4c9c; /* Morado Rapunzel */
+            font-weight: bold;
+            z-index: 11; /* Un poco más arriba que la imagen */
+        }
+        
+        /* 💬 El triángulo del bocadillo */
+        .rapunzel_dialogo::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 20px;
+            border-width: 15px 0 15px 15px;
+            border-style: solid;
+            border-color: transparent transparent transparent white;
+        }
+
+        .tower_container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 3px solid #f9f0ca;
+            position: relative;
+            z-index: 5; /* Por debajo de Rapunzel */
+        }
+
+        .tower_container::before {
+            content: '☀️';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 3em;
+            color: #f6e08c;
+            opacity: 0.6;
+        }
+
+        h1 {
+            color: #6a4c9c;
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .subtitulo {
+            color: #d88fb5;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .btn_comenzar {
+            display: inline-block;
+            background-color: #6a4c9c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            margin-bottom: 10px; /* Espacio entre botones */
+        }
+
+        .btn_comenzar:hover {
+            background-color: white;
+            color: #6a4c9c;
+            border: 2px solid #6a4c9c;
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #8c8c8c;
+        }
+
+        .btn_reset {
+            color: #a694bf;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+            border: none;
+        }
+        .btn_reset:hover { color: #d88fb5; text-decoration: underline; }
+
+        @keyframes destello {
+            0% { box-shadow: 0 4px 10px rgba(106, 76, 156, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(246, 224, 140, 0.8); }
+            100% { box-shadow: 0 4px 10px rgba(106, 76, 156, 0.3); }
+        }
+
+        .btn_comenzar_destello {
+            animation: destello 3s infinite;
+        }
+
+    </style>
+</head>
+<body>
+
+    <img src="{{ url_for('static', filename='images/rapunzel_colgada.png') }}" alt="Rapunzel Colgada" class="rapunzel_hanging">
+    
+    <div class="rapunzel_dialogo">
+        {{ mensaje_rapunzel }}
+    </div>
+
+<div class="tower_container">
+    <h1>🏥 Banco de Preguntas Basica I</h1>
+    <p class="subtitulo">¡Prepárate para brillar! 🌟</p>
+    
+    <a href="{{ url_for('quiz') }}" class="btn_comenzar btn_comenzar_destello">¡Comenzar Cuestionario!</a>
+    <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5;">¡Modo Examen de la Torre! ⏱️</a>
+
+    <div class="footer">
+        <a href="{{ url_for('reset') }}" class="btn_reset">Reiniciar Puntos</a>
+    </div>
+</div>
+
+</body>
+</html>

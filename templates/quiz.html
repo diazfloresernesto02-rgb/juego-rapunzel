@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario Mágico</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #4a4a4a;
+            padding: 20px;
+        }
+
+        .quiz_container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            border: 3px solid #f9f0ca;
+            position: relative;
+        }
+
+        h2 {
+            color: #6a4c9c;
+            font-family: 'Georgia', serif;
+            font-size: 1.4em;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .opciones {
+            margin: 20px 0;
+        }
+
+        .opcion {
+            display: block;
+            background-color: #ffffff;
+            border: 1px solid #e1d5eb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .opcion:hover {
+            background-color: #fbf4f8;
+            border-color: #d88fb5;
+            transform: translateX(5px);
+        }
+
+        .opcion input {
+            margin-right: 12px;
+            accent-color: #6a4c9c; 
+        }
+
+        .btn_enviar {
+            background-color: #6a4c9c;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            box-shadow: 0 4px 10px rgba(106, 76, 156, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn_enviar:hover {
+            background-color: #553b80;
+            box-shadow: 0 6px 15px rgba(106, 76, 156, 0.3);
+        }
+
+        .mensaje {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+        }
+
+        .correcto {
+            background-color: #e2f3e7;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .incorrecto {
+            background-color: #fce8e6;
+            color: #c5221f;
+            border: 1px solid #f5c2c7;
+        }
+
+        .score {
+            text-align: center;
+            color: #8c8c8c;
+            font-size: 0.95em;
+            margin-top: 20px;
+            border-top: 1px solid #f3ebf7;
+            padding-top: 15px;
+        }
+
+        .navigation_links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn_nav {
+            color: #a694bf;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.2s;
+        }
+
+        .btn_nav:hover {
+            color: #d88fb5;
+            text-decoration: underline;
+        }
+
+        .sol_flotante {
+            position: absolute;
+            font-size: 1.5em;
+            animation: flotarHaciaArriba 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes flotarHaciaArriba {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz_container">
+    
+    {% if mensaje %}
+        <div class="mensaje {% if es_correcta %}correcto{% else %}incorrecto{% endif %}">
+            {{ mensaje }}
+            {% if es_correcta %}
+                <span class="sol_flotante" style="left: 10%;">☀️</span>
+                <span class="sol_flotante" style="left: 50%;">☀️</span>
+                <span class="sol_flotante" style="left: 85%;">☀️</span>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <h2>{{ enunciado }}</h2>
+
+    <form action="{{ url_for('quiz') }}" method="POST">
+        <input type="hidden" name="correcta" value="{{ correcta }}">
+
+        <div class="opciones">
+            <label class="opcion"><input type="radio" name="respuesta" value="a" required> {{ a }}</label>
+            <label class="opcion"><input type="radio" name="respuesta" value="b"> {{ b }}</label>
+            <label class="opcion"><input type="radio" name="respuesta" value="c"> {{ c }}</label>
+            <label class="opcion"><input type="radio" name="respuesta" value="d"> {{ d }}</label>
+        </div>
+
+        <button type="submit" class="btn_enviar">Siguiente Pregunta ✨</button>
+    </form>
+
+    <div class="score">
+        Respuestas correctas: <strong>{{ aciertos }}</strong> de {{ total }} intentadas.
+    </div>
+    
+    <div class="navigation_links">
+        <a href="{{ url_for('inicio') }}" class="btn_nav">← Volver al Inicio</a>
+        <a href="{{ url_for('resultado') }}" class="btn_nav">Finalizar y Ver Nota 📊</a>
+    </div>
+</div>
+
+</body>
+</html>

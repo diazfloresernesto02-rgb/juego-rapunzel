@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Tu Resultado Mágico 🌟</title>
+    <style>
+        body {
+            /* Fondo degradado suave en tonos morado pastel y rosa pastel */
+            background: linear_gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #4a4a4a;
+        }
+
+        .results_container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 3px solid #f9f0ca; /* Borde dorado pastel */
+            position: relative;
+        }
+
+        h1 {
+            color: #6a4c9c; /* Morado Rapunzel */
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .mensaje_final {
+            color: #d88fb5; /* Rosa suave pastel */
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .score_box {
+            background-color: #fbf4f8;
+            border: 1px solid #e1d5eb;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .score_box p {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: #553b80;
+        }
+
+        .number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #6a4c9c;
+        }
+
+        .btn_reiniciar {
+            display: inline-block;
+            background-color: #6a4c9c; /* Morado Rapunzel principal */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 10px rgba(106, 76, 156, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn_reiniciar:hover {
+            background-color: white;
+            color: #6a4c9c;
+            border: 2px solid #6a4c9c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(106, 76, 156, 0.4);
+        }
+
+        /* Pequeño detalle flotante de sol decorativo */
+        .sol_decorativo {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 15px;
+            color: #f6e08c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="results_container">
+    <span class="sol_decorativo">☀️</span>
+    <h1>¡Cuestionario Terminado!</h1>
+    
+    <p class="mensaje_final">
+        {% if aciertos == total and total > 0 %}
+            ✨ ¡Increíble! ¡Hiciste brillar tu luz al máximo! ✨
+        {% elif aciertos >= (total / 2) %}
+            🌸 ¡Muy buen trabajo! Estás cada vez más cerca de tu sueño. 🌸
+        {% else %}
+            🎨 ¡No te desanimes! Mañana será un nuevo día para intentar. 🎨
+        {% endif %}
+    </p>
+
+    <div class="score_box">
+        <p>Lograste acertar <span class="number">{{ aciertos }}</span> preguntas.</p>
+        <p>De un total de <span class="number">{{ total }}</span> respondidas.</p>
+    </div>
+    
+    <a href="{{ url_for('reset') }}" class="btn_reiniciar">✨ Vivir un nuevo sueño (Reiniciar) ✨</a>
+</div>
+
+</body>
+</html>
