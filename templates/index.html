@@ -6,67 +6,107 @@
     <title>🌟 Banco de Preguntas Basica I 🌟</title>
     <style>
         body {
-            background: linear_gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
+            background: linear-gradient(135deg, #e9dcf1 0%, #f7e1eb 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             color: #4a4a4a;
-            position: relative; /* Necesario para posicionar a Rapunzel */
-            overflow: hidden; /* Evita que el cabello se salga de la pantalla */
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* 💇 Estilo para Rapunzel Colgada */
-        .rapunzel_hanging {
-            position: absolute;
-            top: 0; /* Colgada desde arriba */
-            right: -100px; /* Sale desde el lado derecho */
-            width: 300px; /* Ajusta el tamaño según tu imagen */
-            z-index: 10; /* Por encima de todo */
-            transition: all 0.5s ease; /* Pequeño efecto al cargar */
+        /* 💇 Animación para aparecer y desaparecer */
+        @keyframes aparecer_desaparecer {
+            0%, 10% { opacity: 0; transform: translateY(-20px); } /* Invisible */
+            15%, 85% { opacity: 1; transform: translateY(0px); }  /* Visible */
+            90%, 100% { opacity: 0; transform: translateY(-20px); } /* Invisible */
         }
 
-        /* 💬 Estilo para el Bocadillo de Diálogo */
+        /* Contenedor del personaje y diálogo */
+        .personaje_wrapper {
+            position: fixed;
+            z-index: 20;
+            display: flex;
+            flex-direction: column-reverse; /* Diálogo ARRIBA del personaje */
+            align-items: center; /* Centrado en móviles por defecto */
+            animation: aparecer_desaparecer 20s infinite ease-in-out;
+            width: 90%; /* Ancho en móviles */
+            max-width: 300px;
+            top: 20px; /* Arriba en móviles */
+            left: 50%;
+            transform: translateX(-50%); /* Centrado horizontal */
+        }
+
+        /* Imagen del personaje (Flynn o Rapunzel) */
+        .img_personaje {
+            width: 140px; /* Tamaño adaptado para móviles */
+            height: auto;
+            margin-top: 10px; /* Separación del diálogo */
+        }
+
+        /* Bocadillo de diálogo flotando arriba de él */
         .rapunzel_dialogo {
-            position: absolute;
-            top: 150px; /* Ajusta según la posición de la cara de Rapunzel */
-            right: 220px; /* Ajusta la distancia */
             background-color: white;
-            padding: 15px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 250px;
+            padding: 10px 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            font-size: 1.1em;
-            color: #6a4c9c; /* Morado Rapunzel */
+            font-size: 1em;
+            color: #6a4c9c;
             font-weight: bold;
-            z-index: 11; /* Un poco más arriba que la imagen */
-        }
-        
-        /* 💬 El triángulo del bocadillo */
-        .rapunzel_dialogo::after {
-            content: '';
-            position: absolute;
-            right: -15px;
-            top: 20px;
-            border-width: 15px 0 15px 15px;
-            border-style: solid;
-            border-color: transparent transparent transparent white;
+            max-width: 100%; /* Ocupa el contenedor */
         }
 
+        /* --- 🖥️ DISEÑO PARA COMPUTADORAS (Pantallas anchas) --- */
+        @media (min-width: 768px) {
+            .personaje_wrapper {
+                top: auto;
+                bottom: -20px; /* Pegado abajo a la derecha */
+                right: 0;
+                left: auto;
+                transform: none;
+                align-items: flex-end; /* Alineado a la derecha */
+                width: auto;
+            }
+
+            .img_personaje {
+                width: 180px; /* Más grande en computadoras */
+                margin-right: -20px; /* Apoyado en el borde */
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            .rapunzel_dialogo {
+                font-size: 1.1em;
+                margin-right: 20px;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Estilos del contenedor principal (responsivos) */
         .tower_container {
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
             max-width: 450px;
-            width: 90%;
+            width: 100%;
             border: 3px solid #f9f0ca;
             position: relative;
-            z-index: 5; /* Por debajo de Rapunzel */
+            z-index: 5;
+            margin-top: 150px; /* Espacio para el personaje arriba en móviles */
+        }
+
+        @media (min-width: 768px) {
+            .tower_container {
+                padding: 40px;
+                margin-top: 0; /* Volvemos al centro en computadoras */
+            }
         }
 
         .tower_container::before {
@@ -74,22 +114,30 @@
             position: absolute;
             top: -15px;
             right: -15px;
-            font-size: 3em;
+            font-size: 2.5em;
             color: #f6e08c;
             opacity: 0.6;
+        }
+
+        @media (min-width: 768px) {
+            .tower_container::before { font-size: 3em; }
         }
 
         h1 {
             color: #6a4c9c;
             font-family: 'Georgia', serif;
             margin-bottom: 10px;
-            font-size: 2.2em;
+            font-size: 1.8em; /* Más pequeño en móviles */
+        }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 2.2em; }
         }
 
         .subtitulo {
             color: #d88fb5;
-            font-size: 1.1em;
-            margin-bottom: 30px;
+            font-size: 1em;
+            margin-bottom: 25px;
             font-weight: 500;
         }
 
@@ -97,13 +145,23 @@
             display: inline-block;
             background-color: #6a4c9c;
             color: white;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
             transition: all 0.3s ease;
-            margin-bottom: 10px; /* Espacio entre botones */
+            margin-bottom: 10px;
+            width: 100%; /* Botones grandes en móviles */
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .btn_comenzar {
+                padding: 15px 30px;
+                font-size: 1.2em;
+                width: auto; /* Ancho automático en computadoras */
+            }
         }
 
         .btn_comenzar:hover {
@@ -114,7 +172,7 @@
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: 30px;
             font-size: 0.9em;
             color: #8c8c8c;
         }
@@ -126,6 +184,7 @@
             padding: 0;
             background: none;
             border: none;
+            font-size: 1em;
         }
         .btn_reset:hover { color: #d88fb5; text-decoration: underline; }
 
@@ -143,21 +202,24 @@
 </head>
 <body>
 
-    <img src="{{ url_for('static', filename='images/rapunzel_colgada.png') }}" alt="Rapunzel Colgada" class="rapunzel_hanging">
-    
-    <div class="rapunzel_dialogo">
-        {{ mensaje_rapunzel }}
+    {% if personaje_actual == "rapunzel" or personaje_actual == "flynn" %}
+    <div class="personaje_wrapper">
+        <div class="rapunzel_dialogo">
+            {{ mensaje_actual }}
+        </div>
+        <img src="{{ url_for('static', filename=imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
     </div>
+    {% endif %}
 
 <div class="tower_container">
     <h1>🏥 Banco de Preguntas Basica I</h1>
     <p class="subtitulo">¡Prepárate para brillar! 🌟</p>
     
     <a href="{{ url_for('quiz') }}" class="btn_comenzar btn_comenzar_destello">¡Comenzar Cuestionario!</a>
-    <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5;">¡Modo Examen de la Torre! ⏱️</a>
+    <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5;">Examen de la Torre! ⏱️</a>
 
     <div class="footer">
-        <a href="{{ url_for('reset') }}" class="btn_reset">Reiniciar Puntos</a>
+        <a href="{{ url_for('reset') }}" class="btn_reset">Reiniciar progreso</a>
     </div>
 </div>
 
