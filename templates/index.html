@@ -14,7 +14,7 @@
             min-height: 100vh;
             margin: 0;
             color: #4a4a4a;
-            padding: 20px;
+            padding: 10px; /* Menos padding para celulares ultra pequeños */
             box-sizing: border-box;
             overflow: hidden;
             position: relative;
@@ -23,18 +23,18 @@
         /* ☀️ SOLES DECORATIVOS EN LAS ESQUINAS DEL FONDO ☀️ */
         .sol-fondo {
             position: absolute;
-            font-size: 3.5rem;
+            font-size: 3rem; /* Un poco más pequeños en celular */
             color: #f6e08c;
-            opacity: 0.25;
+            opacity: 0.2;
             z-index: 1;
             user-select: none;
         }
-        .sol-top-left { top: 15px; left: 15px; }
-        .sol-bottom-right { bottom: 15px; right: 15px; }
+        .sol-top-left { top: 10px; left: 10px; }
+        .sol-bottom-right { bottom: 10px; right: 10px; }
 
         .tower_container {
             background-color: rgba(255, 255, 255, 0.96);
-            padding: 25px;
+            padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             text-align: center;
@@ -43,10 +43,13 @@
             border: 3px solid #f9f0ca;
             box-sizing: border-box;
             position: relative;
-            z-index: 5; /* Por encima de los soles del fondo */
+            z-index: 5;
+            /* Pequeño margen superior para no chocar con el sol */
+            margin-top: 10px; 
+            margin-bottom: 10px;
         }
 
-        /* 🎭 Estilos del Personaje 🎭 */
+        /* 🎭 Estilos del Personaje INTEGRADOS 🎭 */
         .personaje_integrado {
             display: flex;
             flex-direction: column;
@@ -57,7 +60,7 @@
         }
 
         .img_personaje {
-            width: 95px;
+            width: 100px;
             height: auto;
             margin-bottom: 10px;
             filter: drop-shadow(0 4px 5px rgba(0,0,0,0.1));
@@ -68,13 +71,29 @@
             color: #6a4c9c;
             font-weight: bold;
             font-size: 0.88em;
-            padding: 12px 15px;
+            padding: 10px 15px;
             border-radius: 12px;
             text-align: center;
             line-height: 1.4;
             width: 100%;
             box-sizing: border-box;
             word-wrap: break-word;
+        }
+
+        @media (min-width: 768px) {
+            .personaje_integrado {
+                flex-direction: row;
+                align-items: flex-end;
+            }
+            .img_personaje {
+                width: 120px;
+                margin-bottom: 0;
+                margin-right: 15px;
+            }
+            .rapunzel_dialogo {
+                max-width: 70%;
+                text-align: left;
+            }
         }
 
         /* 🏥 Título y Botones 🏥 */
@@ -88,7 +107,7 @@
         .subtitulo {
             color: #d88fb5;
             font-size: 0.85em;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 500;
         }
 
@@ -159,7 +178,8 @@
 
     {% if personaje_actual %}
     <div class="personaje_integrado">
-        <img src="{{ imagen_personaje }}" alt="{{ personaje_actual }}" class="img_personaje">
+        <img src="{{ url_for('static', filename=imagen_personaje) }}" alt="{{ personaje_actual }}" class="img_personaje">
+        
         <div class="rapunzel_dialogo">{{ mensaje_actual }}</div>
     </div>
     {% endif %}
