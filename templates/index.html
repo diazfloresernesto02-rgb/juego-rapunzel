@@ -17,10 +17,23 @@
             padding: 20px;
             box-sizing: border-box;
             overflow: hidden;
+            position: relative;
         }
 
+        /* ☀️ SOLES DECORATIVOS EN LAS ESQUINAS DEL FONDO ☀️ */
+        .sol-fondo {
+            position: absolute;
+            font-size: 3.5rem;
+            color: #f6e08c;
+            opacity: 0.25;
+            z-index: 1;
+            user-select: none;
+        }
+        .sol-top-left { top: 15px; left: 15px; }
+        .sol-bottom-right { bottom: 15px; right: 15px; }
+
         .tower_container {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.96);
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -30,6 +43,7 @@
             border: 3px solid #f9f0ca;
             box-sizing: border-box;
             position: relative;
+            z-index: 5; /* Por encima de los soles del fondo */
         }
 
         /* 🎭 Estilos del Personaje 🎭 */
@@ -37,13 +51,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-bottom: 1px solid #e9dcf1;
             padding-bottom: 15px;
         }
 
         .img_personaje {
-            width: 100px;
+            width: 95px;
             height: auto;
             margin-bottom: 10px;
             filter: drop-shadow(0 4px 5px rgba(0,0,0,0.1));
@@ -53,7 +67,7 @@
             background-color: #fbf4f8;
             color: #6a4c9c;
             font-weight: bold;
-            font-size: 0.9em;
+            font-size: 0.88em;
             padding: 12px 15px;
             border-radius: 12px;
             text-align: center;
@@ -73,7 +87,7 @@
 
         .subtitulo {
             color: #d88fb5;
-            font-size: 0.9em;
+            font-size: 0.85em;
             margin-bottom: 20px;
             font-weight: 500;
         }
@@ -91,20 +105,33 @@
             width: 100%;
             box-sizing: border-box;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(106, 76, 156, 0.2);
         }
 
         .btn_comenzar:hover {
             background-color: white;
             color: #6a4c9c;
             border: 2px solid #6a4c9c;
+            transform: translateY(-2px);
+        }
+
+        /* ☀️ SOL PEQUEÑO EN EL PIE DE PÁGINA ☀️ */
+        .footer-decoracion {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            color: #f6e08c;
+            font-size: 1.2rem;
         }
 
         .footer {
-            margin-top: 20px;
-            font-size: 0.85em;
+            margin-top: 10px;
+            font-size: 0.8em;
             color: #8c8c8c;
             border-top: 1px solid #e9dcf1;
-            padding-top: 15px;
+            padding-top: 10px;
         }
 
         .btn_reset {
@@ -113,10 +140,20 @@
             cursor: pointer;
             background: none;
             border: none;
+            font-size: 0.9em;
+            padding: 5px;
+        }
+        
+        .btn_reset:hover {
+            color: #d88fb5;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
+    <div class="sol-fondo sol-top-left">☀️</div>
+    <div class="sol-fondo sol-bottom-right">☀️</div>
 
 <div class="tower_container">
 
@@ -131,7 +168,13 @@
     <p class="subtitulo">¡Prepárate para brillar! 🌟</p>
     
     <a href="{{ url_for('quiz') }}" class="btn_comenzar">¡Comenzar Cuestionario!</a>
-    <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5;">Examen de la Torre! ⏱️</a>
+    <a href="{{ url_for('iniciar_examen') }}" class="btn_comenzar" style="background-color: #d88fb5; box-shadow: 0 4px 10px rgba(216, 143, 181, 0.2);">Examen de la Torre! ⏱️</a>
+
+    <div class="footer-decoracion">
+        <span>✨</span>
+        <span>☀️</span>
+        <span>✨</span>
+    </div>
 
     <div class="footer">
         <button onclick="window.location.href='{{ url_for('reset') }}'" class="btn_reset">Reiniciar progreso</button>
