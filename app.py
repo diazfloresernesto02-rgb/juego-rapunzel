@@ -37,13 +37,14 @@ def inicio():
     
     aparece_rapunzel = random.choice([True, False])
     
+    # Usamos enlaces directos de internet para asegurar que SIEMPRE carguen
     if aparece_rapunzel:
         personaje = "rapunzel"
-        imagen = "rapunzel.png" # 👈 Corregido: Quitamos el "images/" y dejamos el nombre simple
+        imagen = "https://i.imgur.com/vHq0A6r.png" # Imagen transparente de Rapunzel
         mensaje = random.choice(frases_rapunzel)
     else:
         personaje = "flynn"
-        imagen = "flynn.png" # 👈 Corregido: Quitamos el "images/"
+        imagen = "https://i.imgur.com/K38uYQ2.png" # Imagen transparente de Flynn
         mensaje = random.choice(curiosidades_flynn)
         
     session['personaje_actual'] = personaje
@@ -74,7 +75,6 @@ def quiz():
     motivacion_pascal = None
 
     if request.method == 'POST':
-        # 🧹 Limpiamos la respuesta del usuario
         respuesta_usuario = str(request.form.get('respuesta')).strip().lower()
         respuesta_correcta = str(request.form.get('correcta')).strip().lower()
         
@@ -91,7 +91,6 @@ def quiz():
         if session.get('modo') == 'torre' and session['total'] >= 30:
             return redirect(url_for('resultado'))
 
-    # Traer una pregunta aleatoria
     db = obtener_db()
     pregunta = db.execute('SELECT * FROM preguntas ORDER BY RANDOM() LIMIT 1').fetchone()
     db.close()
@@ -110,14 +109,12 @@ def quiz():
     
     random.shuffle(opciones)
     
-    # Buscamos el texto de la respuesta correcta original
     letra_correcta_original = str(pregunta['respuesta_correcta']).lower().strip()
     valor_correcto_real = ""
     for op in opciones:
         if op['id'] == letra_correcta_original:
             valor_correcto_real = op['texto']
 
-    # Aparece Pascal cada 10 preguntas
     if session['total'] > 0 and session['total'] % 10 == 0:
         motivacion_pascal = "¡Pascal dice que te concentres! 🦎💚"
 
