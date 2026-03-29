@@ -20,14 +20,13 @@
             overflow-x: hidden;
         }
 
-        /* 🌿 Contenedor motivacional de Pascal (Responsivo) */
         .pascal_wrapper {
             position: fixed;
             z-index: 20;
             display: flex;
             flex-direction: column-reverse;
             align-items: center;
-            bottom: 60px; /* Subido un poco para no chocar con la barra inferior */
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             animation: aparecer_desde_abajo 0.5s ease-out;
@@ -35,7 +34,6 @@
             max-width: 250px;
         }
 
-        /* --- 🖥️ DISEÑO PARA COMPUTADORAS --- */
         @media (min-width: 768px) {
             .pascal_wrapper {
                 flex-direction: column;
@@ -53,14 +51,8 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        .img_pascal {
-            width: 80px;
-            height: auto;
-        }
-
-        @media (min-width: 768px) {
-            .img_pascal { width: 100px; }
-        }
+        .img_pascal { width: 80px; height: auto; }
+        @media (min-width: 768px) { .img_pascal { width: 100px; } }
 
         .mensaje_pascal {
             background-color: white;
@@ -75,7 +67,6 @@
             width: 100%;
         }
 
-        /* ☀️ EFECTO DE SOLES MÁGICOS VOLADORES ☀️ */
         .sol_flotante {
             position: absolute;
             font-size: 2em;
@@ -99,17 +90,8 @@
             font-size: 1.1em;
         }
 
-        .correcto {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .incorrecto {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
+        .correcto { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .incorrecto { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
         .quiz_main {
             display: flex;
@@ -118,12 +100,10 @@
             align-items: center;
             flex-grow: 1;
             width: 100%;
-            margin-bottom: 160px; /* Espacio para Pascal y la barra inferior */
+            margin-bottom: 160px;
         }
 
-        @media (min-width: 768px) {
-            .quiz_main { margin-bottom: 60px; }
-        }
+        @media (min-width: 768px) { .quiz_main { margin-bottom: 60px; } }
 
         .quiz_container {
             background-color: rgba(255, 255, 255, 0.95);
@@ -136,13 +116,7 @@
             box-sizing: border-box;
         }
 
-        h2 {
-            color: #6a4c9c;
-            font-family: 'Georgia', serif;
-            margin-bottom: 20px;
-            line-height: 1.4;
-            font-size: 1.3em;
-        }
+        h2 { color: #6a4c9c; font-family: 'Georgia', serif; margin-bottom: 20px; line-height: 1.4; font-size: 1.3em; }
 
         .option_label {
             display: block;
@@ -156,13 +130,8 @@
             font-size: 0.95em;
         }
 
-        .option_label:hover {
-            background-color: #f9e1eb;
-        }
-
-        .option_input {
-            margin-right: 10px;
-        }
+        .option_label:hover { background-color: #f9e1eb; }
+        .option_input { margin-right: 10px; }
 
         .btn_enviar {
             display: block;
@@ -179,18 +148,10 @@
             transition: background-color 0.3s;
         }
 
-        .btn_enviar:hover {
-            background-color: #553b80;
-        }
+        .btn_enviar:hover { background-color: #553b80; }
 
-        .quiz_status {
-            margin-top: 15px;
-            color: #8c8c8c;
-            font-size: 0.85em;
-            text-align: center;
-        }
+        .quiz_status { margin-top: 15px; color: #8c8c8c; font-size: 0.85em; text-align: center; }
 
-        /* 📍 BARRA INFERIOR DISCRETA DE NAVEGACIÓN 📍 */
         .barra_inferior {
             position: fixed;
             bottom: 0;
@@ -218,15 +179,8 @@
             padding: 5px 10px;
         }
 
-        .link_discreto:hover {
-            color: #d88fb5;
-        }
-
-        .separador {
-            color: #e1d5eb;
-            user-select: none;
-        }
-
+        .link_discreto:hover { color: #d88fb5; }
+        .separador { color: #e1d5eb; user-select: none; }
     </style>
 </head>
 <body>
@@ -260,22 +214,22 @@
                 <input type="hidden" name="correcta" value="{{ correcta }}">
                 
                 <label class="option_label">
-                    <input type="radio" name="respuesta" value="a" required class="option_input">
+                    <input type="radio" name="respuesta" value="{{ a }}" required class="option_input">
                     a) {{ a }}
                 </label>
                 
                 <label class="option_label">
-                    <input type="radio" name="respuesta" value="b" class="option_input">
+                    <input type="radio" name="respuesta" value="{{ b }}" class="option_input">
                     b) {{ b }}
                 </label>
                 
                 <label class="option_label">
-                    <input type="radio" name="respuesta" value="c" class="option_input">
+                    <input type="radio" name="respuesta" value="{{ c }}" class="option_input">
                     c) {{ c }}
                 </label>
                 
                 <label class="option_label">
-                    <input type="radio" name="respuesta" value="d" class="option_input">
+                    <input type="radio" name="respuesta" value="{{ d }}" class="option_input">
                     d) {{ d }}
                 </label>
                 
