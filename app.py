@@ -37,14 +37,14 @@ def inicio():
     
     aparece_rapunzel = random.choice([True, False])
     
-    # Usamos enlaces directos de internet para asegurar que SIEMPRE carguen
+    # ⚠️ CAMBIO CRUCIAL: Usamos las imágenes físicas de tu GitHub ⚠️
     if aparece_rapunzel:
         personaje = "rapunzel"
-        imagen = "https://i.imgur.com/vHq0A6r.png" # Imagen transparente de Rapunzel
+        imagen = "images/rapunzel.png" # 👈 Usamos la foto física de tu carpeta static/images/
         mensaje = random.choice(frases_rapunzel)
     else:
         personaje = "flynn"
-        imagen = "https://i.imgur.com/K38uYQ2.png" # Imagen transparente de Flynn
+        imagen = "images/flynn.png" # 👈 Usamos la foto física de tu carpeta static/images/
         mensaje = random.choice(curiosidades_flynn)
         
     session['personaje_actual'] = personaje
@@ -91,6 +91,7 @@ def quiz():
         if session.get('modo') == 'torre' and session['total'] >= 30:
             return redirect(url_for('resultado'))
 
+    # Traer una pregunta aleatoria
     db = obtener_db()
     pregunta = db.execute('SELECT * FROM preguntas ORDER BY RANDOM() LIMIT 1').fetchone()
     db.close()
@@ -109,12 +110,14 @@ def quiz():
     
     random.shuffle(opciones)
     
+    # Buscamos el texto de la respuesta correcta original
     letra_correcta_original = str(pregunta['respuesta_correcta']).lower().strip()
     valor_correcto_real = ""
     for op in opciones:
         if op['id'] == letra_correcta_original:
             valor_correcto_real = op['texto']
 
+    # Aparece Pascal cada 10 preguntas
     if session['total'] > 0 and session['total'] % 10 == 0:
         motivacion_pascal = "¡Pascal dice que te concentres! 🦎💚"
 
@@ -124,7 +127,7 @@ def quiz():
                            b=opciones[1]['texto'],
                            c=opciones[2]['texto'],
                            d=opciones[3]['texto'],
-                           correcta=valor_correcto_real,
+                           correcta=valor_correcto_real, # Mandamos el texto puro
                            mensaje=mensaje_feedback,
                            es_correcta=es_correcta,
                            motivacion_pascal=motivacion_pascal,
